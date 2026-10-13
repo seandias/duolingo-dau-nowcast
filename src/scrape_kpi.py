@@ -72,24 +72,59 @@ def quarter_for(filing_date):
     return filed_in - 1 # one quarter back -> 2026Q2
 
 def scrape(slug):
-    """Step 6: run steps 1 to 5 for every filing, save kpi_scraped.csv."""
-    pass
+    """Step 6: run steps 1-5 on every filing and save companies/<slug>/kpi_scraped.csv."""
+    cfg = json.loads((COMPANIES / slug / "config.json").read_text())
+    cik, pattern = cfg["cik"], cfg["kpi_pattern"]
 
-def compare(slug):
-    """Step 6b: check the scraped numbers against the hand-entered kpi.csv."""
-    pass
-
-# if __name__ == "__main__":
-#     scrape(sys.argv[1])
-if __name__ == "__main__":
-    cik = 1559720
-    pattern = r"Nights and (?:Experiences|Seats) Booked [\d.]+\s?M ([\d.]+)\s?M(?: [\d.]+\s?M)* Gross Booking Value"
-
+    rows = []
     for f in get_earnings_filings(cik):
         quarter = quarter_for(f["filing_date"])
         urls = find_press_release_url(cik, f["accession"])
-        if not urls:
-            print(quarter, f["filing_date"], "no exhibit found")
-            continue                                  # skip to the next filing
-        result = extract_kpi(get_text(urls[0]), pattern)
-        print(quarter, f["filing_date"], result)
+
+        result = None
+        for url in urls: # some filings have 2 exhibits: try each
+            result = extract_kpi(get_text(url), pattern)
+            if result:
+                break
+
+        if result is None:
+            print(f"[{slug}] {quarter}: no match, check this filing ({f['filing_date']})")
+            continue
+
+        value, evidence = result
+        rows.append({
+            "quarter": str(quarter),
+            "quarter_end": str(quarter.end_time.date()),
+            "value": value,
+            "source": url,  # link to the exact document for verification
+            "evidence": evidence, # the text it matched
+        })
+        print(f"[{slug}] {quarter}: {value}")
+
+    df = pd.DataFrame(rows).drop_duplicates("quarter").sort_values("quarter")
+    out = COMPANIES / slug / "kpi_scraped.csv"
+    df.to_csv(out, index=False)
+    print(f"Saved {len(df)} quarters to {out}\n")
+
+
+def compare(slug):
+    """Step 6b: check the scraped numbers against the hand-entered kpi.csv."""
+    folder = COMPANIES / slug
+    scraped = pd.read_csv(folder / "kpi_scraped.csv").set_index("quarter")["value"]
+    manual = pd.read_csv(folder / "kpi.csv").set_index("quarter")["value"]
+
+    both = pd.DataFrame({"manual": manual, "scraped": scraped}).dropna()
+    both["check"] = ((both["manual"] - both["scraped"]).abs() < 0.05).map({True: "✅", False: "❌"})
+    print(both.to_string())
+    print(f"\n{(both['check'] == '✅').sum()} of {len(both)} quarters match")
+
+    missing = manual.index.difference(scraped.index)
+    if len(missing):
+        print("In kpi.csv but not scraped yet:", ", ".join(missing))
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        raise SystemExit("Usage: python3 src/scrape_kpi.py <company>")
+    slug = sys.argv[1]
+    scrape(slug)
+    compare(slug)

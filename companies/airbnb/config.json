@@ -5,5 +5,7 @@
   "kpi_short": "Nights booked",
   "kpi_unit": "millions",
   "search_term": "Airbnb",
-  "geo": ""
+  "geo": "",
+  "cik": 1559720,
+  "kpi_pattern": "Nights and (?:Experiences|Seats) Booked [\\d.]+\\s?M ([\\d.]+)\\s?M(?: [\\d.]+\\s?M)* Gross Booking Value"
 }

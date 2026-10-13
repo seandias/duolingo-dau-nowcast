@@ -1,0 +1,14 @@
+quarter,quarter_end,value,source,evidence
+2023Q2,2023-06-30,115.1,https://www.sec.gov/Archives/edgar/data/1559720/000119312523202832/d446942dex991.htm,Nights and Experiences Booked 103.7 M 115.1 M 205.8 M 236.2 M Gross Booking Value
+2023Q3,2023-09-30,113.2,https://www.sec.gov/Archives/edgar/data/1559720/000119312523268164/d481318dex991.htm,Nights and Experiences Booked 99.7M 113.2M 305.5M 349.4M Gross Booking Value
+2023Q4,2023-12-31,98.8,https://www.sec.gov/Archives/edgar/data/1559720/000119312524033706/d646462dex991.htm,Nights and Experiences Booked 88.2M 98.8M 393.7M 448.2M Gross Booking Value
+2024Q1,2024-03-31,132.6,https://www.sec.gov/Archives/edgar/data/1559720/000119312524134183/d813800dex991.htm,Nights and Experiences Booked 121.1M 132.6M Gross Booking Value
+2024Q2,2024-06-30,125.1,https://www.sec.gov/Archives/edgar/data/1559720/000119312524194849/d831385dex991.htm,Nights and Experiences Booked 115.1M 125.1M 236.2M 257.7M Gross Booking Value
+2024Q3,2024-09-30,122.8,https://www.sec.gov/Archives/edgar/data/1559720/000119312524253103/d886752dex991.htm,Nights and Experiences Booked 113.2M 122.8M 349.4M 380.5M Gross Booking Value
+2024Q4,2024-12-31,111.0,https://www.sec.gov/Archives/edgar/data/1559720/000119312525026054/d915198dex991.htm,Nights and Experiences Booked 98.8M 111.0M 448.2M 491.5M Gross Booking Value
+2025Q1,2025-03-31,143.1,https://www.sec.gov/Archives/edgar/data/1559720/000119312525109934/d40594dex991.htm,Nights and Experiences Booked 132.6M 143.1M Gross Booking Value
+2025Q2,2025-06-30,134.4,https://www.sec.gov/Archives/edgar/data/1559720/000119312525174438/d17531dex991.htm,Nights and Seats Booked 125.1M 134.4M 257.7M 277.5M Gross Booking Value
+2025Q3,2025-09-30,133.6,https://www.sec.gov/Archives/edgar/data/1559720/000119312525269432/d40503dex991.htm,Nights and Seats Booked 122.8M 133.6M 380.5M 411.1M Gross Booking Value
+2025Q4,2025-12-31,121.9,https://www.sec.gov/Archives/edgar/data/1559720/000119312526048670/d58192dex991.htm,Nights and Seats Booked 111.0M 121.9M 491.5M 533.0M Gross Booking Value
+2026Q1,2026-03-31,156.2,https://www.sec.gov/Archives/edgar/data/1559720/000119312526211816/d23351dex991.htm,Nights and Seats Booked 143.1M 156.2M Gross Booking Value
+2026Q2,2026-06-30,148.3,https://www.sec.gov/Archives/edgar/data/1559720/000119312526337928/d70413dex991.htm,Nights and Seats Booked 134.4M 148.3M 277.5M 304.5M Gross Booking Value
