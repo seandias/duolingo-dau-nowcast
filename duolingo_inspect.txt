@@ -1,0 +1,58 @@
+22 earnings filings found for duolingo
+
+=== 2026Q2. | https://www.sec.gov/Archives/edgar/data/1562088/000162828026053299/q2fy26duolingo6-30x26xpres.htm
+'tor Relations website at investors.duolingo.com. "Q2 was a strong quarter, with DAU growth of 23% compared to the prior year, an acceleration from Q1," said Luis von Ahn, Co-Founder and CEO of Duolingo. '
+
+=== 2026Q2. | https://www.sec.gov/Archives/edgar/data/1562088/000162828026053299/q2fy26duolingo6-30x26share.htm
+'d profitability remained healthy and in line with our plan. Daily Active Users (DAUs) grew 23% over last year, a step up from Q1 and ahead of our expectations. Our financial plan for the year remains on '
+'-time event to revive lost streaks. Since two of these are permanent, we expect DAU year-over-year growth throughout the rest of the year to remain above the 20% we had previously guided to. Product As a'
+'is Current User Retention Rate (CURR), which is the proportion of “current user DAUs” who come back the next day. A “current user DAU” is one who was also active another time in the previous seven days. '
+'e proportion of “current user DAUs” who come back the next day. A “current user DAU” is one who was also active another time in the previous seven days. Because small improvements in CURR compound into l'
+'the previous seven days. Because small improvements in CURR compound into large DAU gains, this is one of our most important leading indicators. Thanks to the Green Machine, our CURR is at an all-time hi'
+"ts is offering longer free trials, which we expect to increase both revenue and DAUs. DUOLINGO Q2 2026 4 Put together, this work is making Duolingo a better product. We believe that's driving increased w"
+'ting Metrics (in millions) Q2 2025 Q2 2026 YoY User Metrics Daily active users (DAUs) (1) 47.7 58.7 23% Paid subscribers (period end) 10.9 12.7 17% Operating Metrics Subscription bookings $227.3 $250.3 1'
+'ow margin 34.2% 26.3% (790) bps (1) We primarily evaluate user engagement using DAUs, with MAUs as a supplementary metric. MAUs were 128.3 million and 140.6 million the three months ended June 30, 2025 a'
+'and profitability tracking ahead. This reflects solid execution by our team. Q2 DAUs grew 23% compared to the prior year, accelerating two percentage points sequentially. MAUs grew 10%, accelerating four'
+'s of Duolingo common stock. DUOLINGO Q2 2026 11 Definitions Daily Active Users (DAUs). DAUs are defined as unique users who engage with our Duolingo App or the learning section of our website each calend'
+'olingo common stock. DUOLINGO Q2 2026 11 Definitions Daily Active Users (DAUs). DAUs are defined as unique users who engage with our Duolingo App or the learning section of our website each calendar day.'
+'with our Duolingo App or the learning section of our website each calendar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. The m'
+'ar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. The measurement period for DAUs is the three months ended June 30, 2026 and t'
+'of the DAUs for each day in that measurement period. The measurement period for DAUs is the three months ended June 30, 2026 and the same period in the prior year where applicable, and the analysis of re'
+'r year where applicable, and the analysis of results is based on those periods. DAUs are a measure of the consistent engagement of our global user community on Duolingo. Paid Subscribers. Paid subscriber'
+'er data We manage our business by tracking several operating metrics, including DAUs, paid subscribers, and subscription and total bookings. While these metrics are based on what we believe to be reasona'
+
+=== 2026Q1. | https://www.sec.gov/Archives/edgar/data/1562088/000162828026029790/q1fy26duolingo3-31x26xpres.htm
+
+=== 2026Q1. | https://www.sec.gov/Archives/edgar/data/1562088/000162828026029790/q1fy26duolingo3-31x26share.htm
+'h what we expected. As a reminder, our medium-term goal is to reach 100 million DAUs in 2028. We believe that a larger user base will make Duolingo a significantly more valuable company, so we are priori'
+'ting Metrics (in millions) Q1 2025 Q1 2026 YoY User Metrics Daily active users (DAUs) (1) 46.6 56.5 21% Paid subscribers (period end) 10.3 12.5 21% Operating Metrics Subscription bookings $232.2 $268.1 1'
+'flow margin 44.6% 50.6% 600 bps (1) We primarily evaluate user engagement using DAUs, with MAUs as a supplementary metric. MAUs were 130.2 million and 137.8 million as of March 31, 2025 and 2026, respect'
+"nancial Officer First Quarter 2026 Highlights Q1 was a solid start to the year. DAUs grew 21% year over year to 56.5 million, lapping 49% growth in Q1 2025 when we benefitted from our 'Dead Duo' campaign"
+'Duolingo common stock. DUOLINGO Q1 / FY 2026 12 Definitions Daily Active Users (DAUs). DAUs are defined as unique users who engage with our Duolingo App or the learning section of our website each calend'
+'o common stock. DUOLINGO Q1 / FY 2026 12 Definitions Daily Active Users (DAUs). DAUs are defined as unique users who engage with our Duolingo App or the learning section of our website each calendar day.'
+'with our Duolingo App or the learning section of our website each calendar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. The m'
+'ar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. The measurement period for DAUs is the three months ended March 31, 2026 and '
+'of the DAUs for each day in that measurement period. The measurement period for DAUs is the three months ended March 31, 2026 and the same period in the prior year where applicable, and the analysis of r'
+'r year where applicable, and the analysis of results is based on those periods. DAUs are a measure of the consistent engagement of our global user community on Duolingo. Paid Subscribers. Paid subscriber'
+'er Data We manage our business by tracking several operating metrics, including DAUs, paid subscribers, and subscription and total bookings. While these metrics are based on what we believe to be reasona'
+
+=== 2021Q3. | https://www.sec.gov/Archives/edgar/data/1562088/000156208821000021/q3fy21pressrelease.htm
+'uarter; • Monthly active users (MAUs) were 41.7 million and daily active users (DAUs) were 9.8 million, both of which are all-time highs. Third Quarter 2021 Financial Highlights • Total revenues were $63'
+'perating Metrics Monthly active users (MAUs) 41.7 37.0 13 % Daily active users (DAUs) 9.8 8.4 16 % Paid subscribers (at period end) 2.2 1.5 49 % Subscription bookings $ 55,362 $ 33,778 64 % Total booking'
+'rter. Advertising revenues increased 34% to $9.0 million, due to an increase in DAUs, which resulted in increased advertisements served, as well as a year-over-year increase in advertising revenue per DA'
+'sements served, as well as a year-over-year increase in advertising revenue per DAU. Duolingo English Test revenue grew 19% to $6.7 million due to growth initiatives that drove the number of tests taken,'
+'iptions due to improved retention and mix and by higher advertising revenue per DAU, offset by additional test proctoring costs for the DET. Operating expenses increased $38.9 million or 110% over the pr'
+'f the size of our global active user community on Duolingo. Daily Active Users (DAUs). DAUs are defined as unique Duolingo users who engage with our mobile language learning application or the language l'
+'ize of our global active user community on Duolingo. Daily Active Users (DAUs). DAUs are defined as unique Duolingo users who engage with our mobile language learning application or the language learning'
+' application or the language learning section of our website each calendar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. DAUs '
+'ar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. DAUs are a measure of the consistent engagement of our global user community '
+'riod by taking the average of the DAUs for each day in that measurement period. DAUs are a measure of the consistent engagement of our global user community on Duolingo. Paid Subscribers. Paid subscriber'
+
+=== 2021Q2. | https://www.sec.gov/Archives/edgar/data/1562088/000162828021016602/fy21q2pressrelease.htm
+'.9 million, a decrease of 3% from the prior year quarter; • Daily active users (DAUs) were 9.1 million, an increase of 2% from the prior year quarter; • Paid Subscribers totaled 1.9 million at quarter en'
+'f the size of our global active user community on Duolingo. Daily Active Users (DAUs). DAUs are defined as unique Duolingo users who engage with our mobile language learning application or the language l'
+'ize of our global active user community on Duolingo. Daily Active Users (DAUs). DAUs are defined as unique Duolingo users who engage with our mobile language learning application or the language learning'
+' application or the language learning section of our website each calendar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. DAUs '
+'ar day. DAUs are reported for a measurement period by taking the average of the DAUs for each day in that measurement period. DAUs are a measure of the consistent engagement of our global user community '
+'riod by taking the average of the DAUs for each day in that measurement period. DAUs are a measure of the consistent engagement of our global user community on Duolingo. Paid Subscribers. Paid subscriber'
+

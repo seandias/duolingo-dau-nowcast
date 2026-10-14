@@ -63,11 +63,27 @@ def get_text(url):
      return re.sub(r"\s+", " ", text) # turn any run of spaces, tabs or newlines into a single space
 
 def extract_kpi(text, pattern):
-    """Step 4: use the regex from config.json to find the KPI number."""
+    """Step 4: find the KPI with the regex, return (value, the text it matched).
+
+    Two kinds of pattern are supported:
+    - 1 group:  group 1 is the current quarter (e.g. Airbnb)
+    - 3 groups: two values in unknown order + the YoY % printed next to them (e.g. Duolingo);
+                the YoY % is used to work out which value is the current quarter
+    """
     match = re.search(pattern, text) # find the first place the pattern fits
     if match is None:
         return None
-    return float(match.group(1)), match.group(0)
+
+    if len(match.groups()) == 1:
+        return float(match.group(1)), match.group(0)
+
+    a, b = float(match.group(1)), float(match.group(2))
+    yoy = float(match.group(3).strip("()")) / 100 # "16" -> 0.16, "(4)" -> 0.04
+    if match.group(3).startswith("("):  # (4)% means -4% in financial reports
+        yoy = -yoy
+    # whichever order gives growth closest to the printed YoY % is the right one
+    current = b if abs(b / a - 1 - yoy) < abs(a/b - 1 - yoy) else a
+    return current, match.group(0)
 
 def quarter_for(filing_date):
     """Step 5: work out which quarter a release covers, from its filing date."""

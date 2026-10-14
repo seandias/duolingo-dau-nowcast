@@ -5,5 +5,7 @@
   "kpi_short": "DAUs",
   "kpi_unit": "millions",
   "search_term": "Duolingo",
-  "geo": ""
+  "geo": "",
+  "cik": 1562088,
+  "kpi_pattern": "Daily active users \\(DAUs\\)(?: \\(1\\))? ([\\d.]+) ([\\d.]+) (\\(?[\\d.]+\\)?) ?%"
 }
