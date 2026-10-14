@@ -146,5 +146,7 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     if len(args) == 3 and args[1] == "--inspect":
         inspect(args[0], args[2])                 # e.g. airbnb --inspect Booked
+    elif len(args) == 1:
+        scrape(args[0])                           # e.g. airbnb
     else:
         raise SystemExit("Usage: python3 src/scrape_kpi.py <company> [--inspect <word>]")
