@@ -49,8 +49,8 @@ If Google rate-limits the download, save the CSV by hand from trends.google.com 
 ## Adding a company
 
 1. Create `companies/<name>/config.json` (copy an existing one and change the fields).
-2. Create `companies/<name>/kpi.csv` from the company's shareholder letters or 10-Qs, with a source link on every row. You need at least 11 quarters for the out-of-sample test to start.
-3. Run the two commands above for that company, then write up what you found in its `README.md`.
+2. Add the company's SEC `cik` to its config, then run `python src/scrape_kpi.py <name> --inspect <word>` to see how its filings word the KPI.
+3. Write a `kpi_pattern` in the config (group 1 = current quarter, or 3 groups = two values plus the YoY %), then run `python src/scrape_kpi.py <name>` to build `kpi.csv` automatically.
 
 Good candidates have a consumer-facing KPI that people plausibly search for, and a reason the signal might behave differently from companies already covered.
 

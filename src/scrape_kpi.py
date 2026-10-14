@@ -121,25 +121,9 @@ def scrape(slug):
         print(f"[{slug}] {quarter}: {value}")
 
     df = pd.DataFrame(rows).drop_duplicates("quarter").sort_values("quarter")
-    out = COMPANIES / slug / "kpi_scraped.csv"
+    out = COMPANIES / slug / "kpi.csv"
     df.to_csv(out, index=False)
     print(f"Saved {len(df)} quarters to {out}\n")
-
-
-def compare(slug):
-    """Step 6b: check the scraped numbers against the hand-entered kpi.csv."""
-    folder = COMPANIES / slug
-    scraped = pd.read_csv(folder / "kpi_scraped.csv").set_index("quarter")["value"]
-    manual = pd.read_csv(folder / "kpi.csv").set_index("quarter")["value"]
-
-    both = pd.DataFrame({"manual": manual, "scraped": scraped}).dropna()
-    both["check"] = ((both["manual"] - both["scraped"]).abs() < 0.05).map({True: "✅", False: "❌"})
-    print(both.to_string())
-    print(f"\n{(both['check'] == '✅').sum()} of {len(both)} quarters match")
-
-    missing = manual.index.difference(scraped.index)
-    if len(missing):
-        print("In kpi.csv but not scraped yet:", ", ".join(missing))
 
 def inspect(slug, word, how_many=2):
     """Show the text around `word` in the newest and oldest filings, to help write a pattern."""
@@ -162,8 +146,5 @@ if __name__ == "__main__":
     args = sys.argv[1:]
     if len(args) == 3 and args[1] == "--inspect":
         inspect(args[0], args[2])                 # e.g. airbnb --inspect Booked
-    elif len(args) == 1:
-        scrape(args[0])                           # e.g. airbnb
-        compare(args[0])
     else:
         raise SystemExit("Usage: python3 src/scrape_kpi.py <company> [--inspect <word>]")
