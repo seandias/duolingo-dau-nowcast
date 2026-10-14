@@ -7,5 +7,5 @@
   "search_term": "Airbnb",
   "geo": "",
   "cik": 1559720,
-  "kpi_pattern": "Nights and (?:Experiences|Seats) Booked [\\d.]+\\s?M ([\\d.]+)\\s?M(?: [\\d.]+\\s?M)* Gross Booking Value"
+  "kpi_pattern": "Nights and (?:Experiences|Seats) Booked\\*? [\\d.]+\\s?M? ([\\d.]+)\\s?M?(?: [\\d.]+\\s?M?)* Gross Booking Value"
 }

@@ -25,17 +25,20 @@ def sec_get(url):
     
 def get_earnings_filings(cik):
     """Step 1: list the company's 8-K filings tagged Item 2.02 (earnings)."""
-    url = f"https://data.sec.gov/submissions/CIK{cik:010d}.json"
-    data = sec_get(url).json()
-    recent = data["filings"]["recent"]        # parallel lists: form[i], items[i], ... describe filing i
+    data = sec_get(f"https://data.sec.gov/submissions/CIK{cik:010d}.json").json()
+
+    pages = [data["filings"]["recent"]] #front page
+    for extra in data["filings"]["files"]:
+        pages.append(sec_get("https://data.sec.gov/submissions/" + extra["name"]).json())
 
     filings = []
-    for i in range(len(recent["form"])):
-        if recent["form"][i] == "8-K" and "2.02" in recent["items"][i]: #item 2.02 means here are our results
-            filings.append({
-                "accession": recent["accessionNumber"][i],  # the filing's unique ID
-                "filing_date": recent["filingDate"][i],
-            })
+    for page in pages:
+        for i in range(len(page["form"])):
+            if page["form"][i] == "8-K" and "2.02" in page["items"][i]: #item 2.02 means here are our results
+                filings.append({
+                    "accession": page["accessionNumber"][i],  # the filing's unique ID
+                    "filing_date": page["filingDate"][i],
+                })
     return filings
 
 def find_press_release_url(cik, accession):
@@ -122,9 +125,29 @@ def compare(slug):
     if len(missing):
         print("In kpi.csv but not scraped yet:", ", ".join(missing))
 
+def inspect(slug, word, how_many=2):
+    """Show the text around `word` in the newest and oldest filings, to help write a pattern."""
+    cfg = json.loads((COMPANIES / slug / "config.json").read_text())
+    cik = cfg["cik"]
+    filings = get_earnings_filings(cik)
+    print(f"{len(filings)} earnings filings found for {slug}\n")
+
+    picks = filings[:how_many] + filings[-how_many:]
+    for f in picks:
+        quarter = quarter_for(f["filing_date"])
+        for url in find_press_release_url(cik, f["accession"]):
+            text = get_text(url)
+            print(f"=== {quarter}. | {url}")
+            for m in re.finditer(word, text):
+                print(repr(text[m.start() - 80 : m.end() + 120]))
+            print()
+
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        raise SystemExit("Usage: python3 src/scrape_kpi.py <company>")
-    slug = sys.argv[1]
-    scrape(slug)
-    compare(slug)
+    args = sys.argv[1:]
+    if len(args) == 3 and args[1] == "--inspect":
+        inspect(args[0], args[2])                 # e.g. airbnb --inspect Booked
+    elif len(args) == 1:
+        scrape(args[0])                           # e.g. airbnb
+        compare(args[0])
+    else:
+        raise SystemExit("Usage: python3 src/scrape_kpi.py <company> [--inspect <word>]")
