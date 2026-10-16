@@ -4,21 +4,22 @@ Companies report operating metrics (users, bookings) once a quarter, weeks after
 
 ## Results so far
 
-| Company | KPI | Quarters tested | Beats naive benchmark? | Takeaway |
-|---|---|---|---|---|
-| [Duolingo](companies/duolingo/README.md) | Daily active users | 7 | No (search-change model 4% worse) | Searches went flat after 2023 while users nearly tripled, pointing to retention-led growth. Q3 2026 call: about 62M DAUs. |
-| [Airbnb](companies/airbnb/README.md) | Nights and experiences booked | 9 | Yes (search-change model 9% better, right direction 7 of 9 quarters) | Trips start with a search, so search tracks demand. Searches fell 12.6% YoY in Q3 2026; Q3 call: about 142M nights, a slowdown to roughly 6% growth. |
+| Company | KPI | Quarters tested | Search-change model vs benchmark | Closer than benchmark | Verdict | Takeaway |
+|---|---|---|---|---|---|---|
+| [Airbnb](companies/airbnb/README.md) | Nights booked | 13 | 10% better | 6 of 13 | Only on average | The edge rests on one quarter (Q1 2025); without it, search does 5% worse. Q3 2026 call: about 142M nights. |
+| [Duolingo](companies/duolingo/README.md) | Daily active users | 10 | 11% better | 7 of 10 | Yes, consistently | Small but steady edge (about 0.2M DAUs a quarter), though an earlier data version showed the opposite. Q3 2026 call: about 62M DAUs. |
 
-The contrast is the interesting part: search works as a signal when a purchase starts with a search (travel), and fails for habit products people open directly (a daily learning app). `outputs/summary.md` holds the full comparison table, regenerated each run.
+**The honest summary: search gives at most a small, fragile edge for both companies.** An earlier version of this project found a clean contrast (search works for travel, fails for a habit app). Adding more data reversed it: Airbnb's edge turned out to depend on a single quarter, and Duolingo's result flipped from slightly worse to slightly better. That sensitivity is the main finding so far, and the reason the analysis now reports how consistent each edge is, not just its average. `outputs/summary.md` holds the full comparison table, regenerated each run.
 
-New here? The [Duolingo walkthrough notebook](walkthrough_duolingo.ipynb) explains the whole method step by step, with charts, and renders right in the browser.
+New here? The [Duolingo walkthrough notebook](walkthrough_duolingo.ipynb) explains the whole method step by step, with charts. It was written on an earlier version of the data, so its numbers differ from the tables above.
 
 ## Method (same for every company)
 
 1. **Compare growth, not levels.** KPIs and searches both trend, so their raw levels correlate whether or not one predicts the other. Year-over-year growth removes the trend and seasonality.
 2. **Test out-of-sample.** For each quarter, models are fit only on earlier quarters, then predict that quarter, which is what an analyst could actually have known at the time.
 3. **Beat a benchmark.** The bar is a naive forecast that assumes KPI growth stays the same as last quarter. A signal that can't beat this isn't useful.
-4. **Two models:**
+4. **Check consistency, not just the average.** A model can beat the benchmark on average thanks to one lucky quarter. Each company's results also report how many quarters the search model was closer than the benchmark, and its edge with the single best quarter removed. The verdict is "Yes, consistently" only if it wins on average, in most quarters, and without its best quarter.
+5. **Two models:**
    - *Search-change model:* last quarter's KPI growth, adjusted by how much search growth moved since then. Asks whether a turn in searches signals a turn in the KPI.
    - *Search-level model:* KPI growth regressed directly on search growth.
 
@@ -26,12 +27,13 @@ New here? The [Duolingo walkthrough notebook](walkthrough_duolingo.ipynb) explai
 
 ```
 companies/<name>/
-    config.json         company name, ticker, KPI label, Google search term
-    kpi.csv             quarterly KPI from the company's own filings, with a source link per row
-    google_trends.csv   weekly search interest (created by fetch_trends.py)
+    config.json         company name, ticker, KPI label, Google search term, SEC cik, KPI pattern
+    kpi.csv             quarterly KPI scraped from SEC filings by scrape_kpi.py, with the filing link and matched text per row
+    google_trends.csv   monthly search interest since 2004 (created by fetch_trends.py)
     README.md           write-up of that company's results
 outputs/<name>/         results.md and charts per company
 outputs/summary.md      comparison across companies
+src/scrape_kpi.py       scrapes quarterly KPIs from SEC earnings filings (8-K, Item 2.02)
 src/fetch_trends.py     downloads Google Trends data
 src/analysis.py         runs the tests, charts and nowcast
 ```
@@ -40,6 +42,7 @@ src/analysis.py         runs the tests, charts and nowcast
 
 ```bash
 pip install -r requirements.txt
+python src/scrape_kpi.py airbnb      # one company at a time; repeat for duolingo
 python src/fetch_trends.py --all     # or one company: python src/fetch_trends.py airbnb
 python src/analysis.py --all         # or one company: python src/analysis.py airbnb
 ```
@@ -56,7 +59,8 @@ Good candidates have a consumer-facing KPI that people plausibly search for, and
 
 ## Limitations
 
-- **Small samples.** Most companies have under 20 quarters of overlapping data. Treat results as directional, not as a trading model.
+- **Small samples.** Each company has 10 to 13 tested quarters. Treat results as directional, not as a trading model.
+- **Results are sensitive to the data.** Switching from 5 years of weekly search data to the full monthly history changed Duolingo's verdict. Any single result here should be read with that in mind.
 - **Searches are not customers.** Search interest mostly reflects discovery and buzz, not repeat usage.
-- **Google Trends is relative and sampled.** Values are scaled 0 to 100 within each download and can shift slightly between downloads.
+- **Google Trends is relative and sampled.** Values are scaled 0 to 100 within each download and can shift slightly between downloads. Google also changed how it collects Trends data from 1 January 2022, which may affect growth rates across that date.
 - **Worldwide search mixes markets.** Region-specific search terms (the `geo` field in `config.json`) are a natural next step.
