@@ -60,7 +60,8 @@ def build_quarterly(slug):
 
     trends = load_trends(COMPANIES / slug / "google_trends.csv")
     tq = trends.groupby(trends.index.to_period("Q")).agg(["mean", "count"])
-    tq = tq[tq["count"] >= 10]["mean"]  # drop partial quarters at the edges of the window
+    full = tq["count"].max() # rows in a complete quarter: 13 if weekly, 3 if monthly
+    tq = tq[tq["count"] >= full * 0.75]["mean"]   # drop partial quarters at the edges of the window
 
     idx = pd.period_range(min(kpi.index.min(), tq.index.min()), max(kpi.index.max(), tq.index.max()), freq="Q")
     df = pd.DataFrame(index=idx)
@@ -124,8 +125,13 @@ def metrics(df, wf):
     data = df.dropna(subset=["kpi_yoy", "trends_yoy"])
     mae = {m: (wf[m] - wf["actual"]).abs().mean() for m in ["naive", "change_model", "level_model"]}
     hit = (np.sign(wf["change_yoy"] - wf["naive_yoy"]) == np.sign(wf["actual_yoy"] - wf["naive_yoy"])).mean()
+    gain = (wf["naive"] - wf["actual"]).abs() - (wf["change_model"] - wf["actual"]).abs()
+    wins = int((gain > 0).sum())
+    rest = wf.drop(gain.idxmax())
+    edge_wo_best = (rest["change_model"] - rest["actual"]).abs().mean() / (rest["naive"] - rest["actual"]).abs().mean() - 1
     return {"n": len(data), "first": str(data.index[0]), "last": str(data.index[-1]),
-            "corr": data["kpi_yoy"].corr(data["trends_yoy"]), "tested": len(wf), "mae": mae, "hit": hit}
+            "corr": data["kpi_yoy"].corr(data["trends_yoy"]), "tested": len(wf), "mae": mae, "hit": hit,
+            "wins" : wins, "edge_wo_best": edge_wo_best}
 
 
 def charts(slug, cfg, df, wf):
@@ -174,6 +180,8 @@ def run(slug):
         f"- Mean absolute error, search-change model: {m['mae']['change_model']:.2f}{u} ({vs('change_model')})",
         f"- Mean absolute error, search-level model: {m['mae']['level_model']:.2f}{u} ({vs('level_model')})",
         f"- Search-change model called acceleration vs deceleration correctly: {m['hit']:.0%} of quarters",
+        f"- Search-change model closer than the benchmark: {m['wins']} of {m['tested']} quarters",
+        f"- Search-change vs benchmark without its single best quarter: {m['edge_wo_best'] * 100:+.0f}%",
         "", "## Walk-forward detail", "",
         wf.assign(**{c: wf[c].map("{:.1%}".format) for c in ["actual_yoy", "naive_yoy", "change_yoy", "level_yoy"]},
                   **{c: wf[c].round(1) for c in ["actual", "naive", "change_model", "level_model"]}).to_markdown(index=False),
@@ -189,6 +197,14 @@ def run(slug):
     print(text, "\n")
     return cfg, m, nc
 
+def verdict(m, base):
+    """Yes only if the search model wins on average, in most quarters, and without its best quarter."""
+    better_on_average = m["mae"]["change_model"] < base
+    if better_on_average and m["wins"] > m["tested"] / 2 and m["edge_wo_best"] < 0:
+        return "Yes, consistently"
+    if better_on_average:
+        return "Only on average"
+    return "No"
 
 def summary(results):
     rows = []
@@ -199,7 +215,8 @@ def summary(results):
             "YoY correlation": f"{m['corr']:.2f}",
             "Search-change vs benchmark": f"{(m['mae']['change_model'] / base - 1) * 100:+.0f}%",
             "Search-level vs benchmark": f"{(m['mae']['level_model'] / base - 1) * 100:+.0f}%",
-            "Beats benchmark?": "Yes" if min(m["mae"]["change_model"], m["mae"]["level_model"]) < base else "No",
+            "Wins vs benchmark": f"{m['wins']} of {m['tested']}",
+            "Beats benchmark?": verdict(m, base),
         })
     text = "# Summary across companies\n\nNegative % means lower error than the naive benchmark (better).\n\n" \
         + pd.DataFrame(rows).to_markdown(index=False)

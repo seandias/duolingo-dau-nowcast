@@ -1,4 +1,4 @@
-"""Download weekly Google Trends interest for one company (or all of them).
+"""Download monthly Google Trends interest for one company (or all of them).
 
 Run from the repo root:
     python src/fetch_trends.py duolingo
@@ -29,7 +29,7 @@ def fetch(slug):
     for attempt in range(3):
         try:
             # A 5-year window returns weekly data, all on one consistent 0-100 scale.
-            pytrends.build_payload([term], timeframe="today 5-y", geo=cfg.get("geo", ""))
+            pytrends.build_payload([term], timeframe="all", geo=cfg.get("geo", ""))
             df = pytrends.interest_over_time()
             break
         except Exception as e:  # pytrends raises on 429 / timeouts
@@ -42,7 +42,7 @@ def fetch(slug):
     df.index.name = "date"
     out = COMPANIES / slug / "google_trends.csv"
     df.to_csv(out)
-    print(f"[{slug}] saved {len(df)} weekly rows to {out} ({df.index.min().date()} to {df.index.max().date()})")
+    print(f"[{slug}] saved {len(df)} rows to {out} ({df.index.min().date()} to {df.index.max().date()})")
 
 
 def main():
